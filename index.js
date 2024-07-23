@@ -132,8 +132,7 @@ app.get("/sendEmail", async (req, res) => {
         res.send(info)
 
     } catch (error) {
-
-        req.send({
+        res.send({
             success: false,
             error: error.message
         })
