@@ -103,6 +103,43 @@ app.get("/oneLineStream", (req, res) => {
     rstream.pipe(res)
 })
 
+
+
+const nodemailer = require("nodemailer")
+
+app.get("/sendEmail", async (req, res) => {
+    try {
+
+        let transport = await nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false,
+            auth: {
+                user: 'justyn0@ethereal.email',
+                pass: '6bjf1dtGFf9z4YgAmY'
+            }
+        })
+
+        let info = await transport.sendMail({
+            from: '"Suvo paul" <justyn0@ethereal.email>',
+            to: "suvopaul098@gmail.com",
+            subject: "Hello ✔",
+            text: "Hello from NodeJs-ExpressJs?",
+            html: "<h1>Hello world?</h1>",
+        })
+
+        console.log(info.messageId);
+        res.send(info)
+
+    } catch (error) {
+
+        req.send({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
 // const myServer = http.createServer(app)
 const port = 8000
 app.listen(port, () => {
