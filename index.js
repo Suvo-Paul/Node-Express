@@ -97,6 +97,12 @@ app.get("/stream", (req, res) => {
     })
 })
 
+app.get("/oneLineStream", (req, res) => {
+    const rstream = fs.createReadStream("input.txt")
+
+    rstream.pipe(res)
+})
+
 // const myServer = http.createServer(app)
 const port = 8000
 app.listen(port, () => {
